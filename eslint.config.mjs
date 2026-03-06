@@ -5,14 +5,24 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Override default ignores of eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "sanity/**",
   ]),
+  {
+    rules: {
+      // Enforce no `any` types per AGENTS.md
+      "@typescript-eslint/no-explicit-any": "error",
+      // Warn on unused vars (except those prefixed with _)
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      // Enforce using const assertions
+      "prefer-const": "error",
+    },
+  },
 ]);
 
 export default eslintConfig;
+

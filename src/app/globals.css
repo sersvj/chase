@@ -1,26 +1,169 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================================
+   JACQUELINE CHASE — DESIGN SYSTEM
+   Single source of truth for all design tokens.
+   Do not override these inline — always use the token names.
+   ============================================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --- Brand Colors --- */
+  --color-brand-red: #d22f25;
+  --color-brand-red-dark: #b52822;
+  --color-brand-red-light: #f0544b;
+  --color-brand-dark: #1c1c1c;
+  --color-brand-charcoal: #2e2e2e;
+  --color-brand-warm: #f5f0eb;
+  --color-brand-warm-dark: #ede5dc;
+  --color-brand-white: #ffffff;
+  --color-brand-muted: #7a7a7a;
+
+  /* --- Typography --- */
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-inter);
+  --font-sans: var(--font-inter);
+
+  /* --- Spacing scale (consistent rhythm) --- */
+  --spacing-section: 5rem;      /* 80px — vertical space between page sections */
+  --spacing-section-lg: 8rem;   /* 128px — large section breathing room */
+  --spacing-container: 2rem;    /* horizontal page padding on mobile */
+
+  /* --- Border radius --- */
+  --radius-card: 0.5rem;
+  --radius-btn: 0.25rem;
+
+  /* --- Transitions --- */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 350ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Shadows --- */
+  --shadow-card: 0 2px 16px 0 rgba(28, 28, 28, 0.08);
+  --shadow-card-hover: 0 8px 32px 0 rgba(28, 28, 28, 0.14);
+  --shadow-btn: 0 4px 12px 0 rgba(240, 84, 75, 0.2);
+
+  /* Map to Tailwind standard tokens */
+  --color-background: var(--color-brand-white);
+  --color-foreground: var(--color-brand-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+button, 
+a {
+  cursor: pointer;
+}
+
+/* ============================================================
+   SKIP LINK (Accessibility)
+   ============================================================ */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--color-brand-red);
+  color: var(--color-brand-white);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-btn);
+  text-decoration: none;
+  transition: top var(--duration-fast) ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ============================================================
+   FOCUS STYLES (Accessibility)
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-red);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --- Portable Text Links --- */
+.portable-text-link {
+  color: var(--color-brand-dark);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--color-brand-red);
+  text-underline-offset: 6px;
+  opacity: 0.8;
+  transition: opacity var(--duration-base) ease, text-decoration-style var(--duration-base) ease, color var(--duration-base) ease;
+}
+
+.portable-text-link:hover {
+  opacity: 1;
+  color: var(--color-brand-red);
+  text-decoration-style: solid;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+
+.container-site {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--spacing-container);
+}
+
+@media (min-width: 768px) {
+  .container-site {
+    padding-inline: 3rem;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -1,0 +1,21 @@
+# Chase Creative Co.
+
+> Jacqueline Chase | Copywriter & Brand Strategist
+
+Jacqueline Chase is a strategic copywriter and brand builder specializing in editorial content, brand messaging, and digital marketing. She helps growing brands find their voice and convert through high-impact copy.
+
+## Key Services
+- **Brand Messaging**: Developing unique voice and tone guidelines.
+- **Editorial Copywriting**: Creating high-quality blog posts and thought leadership articles.
+- **SEO Strategy**: Optimizing content for search engine visibility and user engagement.
+
+## Sitemap
+- [Home](https://chasecreative.co/) - Overview of services and featured work.
+- [About](https://chasecreative.co/about) - Experience, background, and mission.
+- [Services](https://chasecreative.co/services) - Detailed breakdown of copywriting offerings.
+- [Work](https://chasecreative.co/work) - Portfolio of selected projects and case studies.
+- [Blog](https://chasecreative.co/blog) - Articles, insights, and industry writing.
+- [Contact](https://chasecreative.co/contact) - Project inquiries and booking.
+
+## Technology Stack
+Built with **Next.js 15**, **Sanity.io**, and **Framer Motion** for a high-performance, premium digital experience.

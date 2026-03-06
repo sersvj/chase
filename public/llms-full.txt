@@ -1,0 +1,44 @@
+# Chase Creative Co. - Full Documentation
+
+> Jacqueline Chase | Copywriter & Brand Strategist
+
+This file provides a detailed overview of the Chase Creative Co. website for Large Language Models.
+
+## About
+Jacqueline Chase is a versatile copywriter specializing in brand messaging, SEO content, and high-conversion copy. The "Chase Creative" brand is built on the philosophy of "Copywriter. Optimist. Brand Builder."
+
+## Services & Expertise
+
+### 1. Brand Messaging & Identity
+- Voice and tone development
+- Brand storytelling
+- Tagline and naming
+- Core messaging pillars
+
+### 2. Editorial & Content Marketing
+- Thought leadership articles
+- SEO-optimized blog posts
+- Long-form features
+- Newsletter content
+
+### 3. Digital Copywriting
+- Website copy
+- Landing pages (high-conversion)
+- Ad copy
+- Product descriptions
+
+## Site Structure (Technical)
+
+### Architecture
+- **Framework**: Next.js 15+ (App Router)
+- **CMS**: Sanity (v3) - Headless content management.
+- **Animations**: Framer Motion (respects prefers-reduced-motion).
+- **Styling**: Tailwind CSS & Vanilla CSS Design System.
+- **Infrastructure**: Vercel.
+
+### Dynamic Routes
+- `/work/[slug]`: Case studies with detailed project overviews and results.
+- `/blog/[slug]`: Individual articles with portable text content.
+
+## Contact & Engagement
+Inquiries can be made via the integrated contact form at `/contact` or via email at hello@chasecreative.co
