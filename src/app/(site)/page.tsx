@@ -37,15 +37,16 @@ export default async function HomePage() {
       <Hero />
 
       <section id="work" className="container-site py-20 lg:py-32">
-        <AnimatedSection>
+        <AnimatedSection className="mb-4 md:mb-6">
           <div className="flex flex-col justify-between md:flex-row md:items-end">
             <SectionHeading 
               title="Featured Projects" 
               subtitle="Selected Work"
+              className="mb-4 md:mb-6"
             />
             <Link 
               href="/work" 
-              className="mb-12 font-bold uppercase tracking-widest text-[var(--color-brand-dark)] transition-colors hover:text-[var(--color-brand-red)] md:mb-16"
+              className="mb-6 font-bold uppercase tracking-widest text-[var(--color-brand-dark)] transition-colors hover:text-[var(--color-brand-red)] md:mb-12"
             >
               See All Work &rarr;
             </Link>

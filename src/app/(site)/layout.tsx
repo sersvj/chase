@@ -13,7 +13,10 @@ export default async function SiteLayout({
 
   return (
     <>
-      <Header siteTitle={settings?.siteTitle} />
+      <Header 
+        siteTitle={settings?.siteTitle} 
+        socialLinks={settings?.socialLinks}
+      />
       <main id="main-content" className="pt-16 md:pt-20">
         {children}
       </main>

@@ -42,12 +42,10 @@ export interface SEO {
 // WORK SAMPLE
 // ============================================================
 export type WorkCategory =
+  | 'verbal-brand'
   | 'brand-messaging'
-  | 'website-copy'
-  | 'blog-content'
-  | 'social-media'
-  | 'email'
-  | 'other'
+  | 'website-content'
+  | 'article-content'
 
 export interface WorkSample {
   _id: string
@@ -55,7 +53,7 @@ export interface WorkSample {
   slug: SanitySlug
   client?: string
   industry?: string
-  category: WorkCategory
+  categories: WorkCategory[]
   summary: string
   body?: PortableTextBlock[]
   featuredImage?: SanityImage
@@ -74,7 +72,7 @@ export interface Service {
   title: string
   description: string
   icon?: string
-  category?: WorkCategory
+  categories?: WorkCategory[]
   order: number
 }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import WorkCard from '@/components/ui/WorkCard'
 import type { WorkSample, WorkCategory } from '@/types/sanity'
@@ -10,31 +10,52 @@ interface WorkListingProps {
   initialWork: WorkSample[]
 }
 
+export const CATEGORY_LABELS: Record<WorkCategory, string> = {
+  'verbal-brand': 'Verbal Brand',
+  'brand-messaging': 'Brand Messaging',
+  'website-content': 'Website Content',
+  'article-content': 'Article Content',
+}
+
 const categories: { label: string; value: WorkCategory | 'all' }[] = [
   { label: 'All Projects', value: 'all' },
+  { label: 'Verbal Brand', value: 'verbal-brand' },
   { label: 'Brand Messaging', value: 'brand-messaging' },
-  { label: 'Website Copy', value: 'website-copy' },
-  { label: 'Article Content', value: 'blog-content' },
-  { label: 'Social Media', value: 'social-media' },
-  { label: 'Email Campaigns', value: 'email' },
+  { label: 'Website Content', value: 'website-content' },
+  { label: 'Article Content', value: 'article-content' },
 ]
 
 function WorkListingContent({ initialWork }: WorkListingProps) {
+  const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
   const [activeCategory, setActiveCategory] = useState<WorkCategory | 'all'>('all')
 
+  // Sync from URL on mount/change
   useEffect(() => {
-    const category = searchParams.get('category') as WorkCategory | null
-    if (category && categories.some(cat => cat.value === category)) {
-      setActiveCategory(category)
-      // Scroll to top of filters when deep-linked
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+    const categoryQuery = searchParams.get('category') as WorkCategory | null
+    if (categoryQuery && categories.some(cat => cat.value === categoryQuery)) {
+      setActiveCategory(categoryQuery)
+    } else {
+      setActiveCategory('all')
     }
   }, [searchParams])
 
+  // Sync to URL
+  const handleCategoryChange = (val: WorkCategory | 'all') => {
+    setActiveCategory(val)
+    const params = new URLSearchParams(searchParams.toString())
+    if (val === 'all') {
+      params.delete('category')
+    } else {
+      params.set('category', val)
+    }
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
+  }
+
   const filteredWork = activeCategory === 'all' 
     ? initialWork 
-    : initialWork.filter(work => work.category === activeCategory)
+    : initialWork.filter(work => work.categories?.includes(activeCategory as WorkCategory))
 
   return (
     <div className="space-y-12">
@@ -43,7 +64,7 @@ function WorkListingContent({ initialWork }: WorkListingProps) {
         {categories.map((cat) => (
           <button
             key={cat.value}
-            onClick={() => setActiveCategory(cat.value)}
+            onClick={() => handleCategoryChange(cat.value)}
             className={`
               rounded-full px-6 py-2 text-sm font-bold transition-all duration-300 cursor-pointer
               ${activeCategory === cat.value 

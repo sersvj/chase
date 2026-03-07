@@ -41,6 +41,22 @@ export const serviceSchema = defineType({
       },
     }),
     defineField({
+      name: 'categories',
+      title: 'Work Categories',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Select one or more work categories to link this service to for filtering.',
+      options: {
+        list: [
+          { title: 'Verbal Brand', value: 'verbal-brand' },
+          { title: 'Brand Messaging', value: 'brand-messaging' },
+          { title: 'Website Content', value: 'website-content' },
+          { title: 'Article Content', value: 'article-content' },
+        ],
+      },
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',

@@ -19,7 +19,7 @@ interface MoonLogoProps {
  *
  * SVG mask used for background-agnostic, fringe-free compositing.
  */
-export default function MoonLogo({ className = '', size = 40, showWordmark = true, wordmarkSrc = '/assets/ccc-logo-type.png' }: MoonLogoProps) {
+export default function MoonLogo({ className = '', size = 40, showWordmark = true, wordmarkSrc = '/assets/ccc-logo-type.svg' }: MoonLogoProps) {
   const prefersReducedMotion = useReducedMotion()
 
   const punchStart = 80  // starts well off the right edge of the viewbox

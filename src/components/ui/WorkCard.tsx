@@ -8,6 +8,8 @@ import type { WorkSample } from '@/types/sanity'
 import { ArrowUpRight } from 'lucide-react'
 import { useRef } from 'react'
 
+import { CATEGORY_LABELS } from '@/components/work/WorkListing'
+
 interface WorkCardProps {
   work: WorkSample
 }
@@ -41,7 +43,7 @@ export default function WorkCard({ work }: WorkCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={prefersReducedMotion ? {} : { rotateX, rotateY, transformPerspective: 800 }}
-      whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+      whileHover={prefersReducedMotion ? {} : { scale: 1.02, zIndex: 10 }}
       transition={{ type: 'spring', stiffness: 150, damping: 30 }}
       className="h-full"
     >
@@ -62,9 +64,13 @@ export default function WorkCard({ work }: WorkCardProps) {
               draggable={false}
             />
             
-            {/* Category Badge - Minimalist Tag */}
-            <div className="absolute right-4 top-4 z-20 bg-[var(--color-brand-dark)] px-3 py-1 text-[9px] font-black uppercase tracking-widest text-white">
-              {work.category === 'blog-content' ? 'Article Content' : work.category.replace('-', ' ')}
+            {/* Category Badges - Minimalist Tags */}
+            <div className="absolute right-4 top-4 z-20 flex flex-wrap justify-end gap-1">
+              {work.categories?.map((cat) => (
+                <div key={cat} className="bg-[var(--color-brand-dark)] px-3 py-1 text-[9px] font-black uppercase tracking-widest text-white">
+                  {CATEGORY_LABELS[cat] || cat.replace('-', ' ')}
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -74,9 +80,13 @@ export default function WorkCard({ work }: WorkCardProps) {
           <div className="flex items-start justify-between gap-4">
             <div className="flex flex-col gap-2">
               {!hasImage && (
-                <span className="text-[9px] font-black uppercase tracking-widest text-[var(--color-brand-red)]">
-                  {work.category === 'blog-content' ? 'Article Content' : work.category.replace('-', ' ')}
-                </span>
+                <div className="flex flex-wrap gap-2">
+                  {work.categories?.map((cat) => (
+                    <span key={cat} className="text-[9px] font-black uppercase tracking-widest text-[var(--color-brand-red)]">
+                      {CATEGORY_LABELS[cat] || cat.replace('-', ' ')}
+                    </span>
+                  ))}
+                </div>
               )}
               <h3 className="font-display text-xl font-bold leading-tight text-[var(--color-brand-dark)] transition-colors duration-300 group-hover:text-[var(--color-brand-red)] md:text-2xl">
                 {work.title}

@@ -4,8 +4,8 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 
 // Grid configuration
-const COLS = 32
-const ROWS = 27
+const COLS = 30
+const ROWS = 26
 const CELL_W = 28
 const CELL_H = 30
 const ALPHABET = 'ABCDEFGHIJKLMNOPRSTUVWXY'

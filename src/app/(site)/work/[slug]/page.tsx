@@ -19,6 +19,8 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
+import { CATEGORY_LABELS } from '@/components/work/WorkListing'
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const work: WorkSample = await getWorkSampleBySlug(slug)
@@ -62,7 +64,7 @@ export default async function WorkSamplePage({ params }: PageProps) {
       '@type': 'Person',
       name: 'Jacqueline Chase',
     },
-    genre: work.category,
+    genre: work.categories?.join(', '),
     datePublished: work.publishedAt,
   }
 
@@ -80,14 +82,14 @@ export default async function WorkSamplePage({ params }: PageProps) {
           &larr; Portfolio
         </Link>
 
-        <header className="mb-16 max-w-4xl">
+        <header className="mb-16 lg:max-w-[calc(50%+24rem)]">
           <SectionHeading 
             title={work.title} 
-            subtitle={work.category === 'blog-content' ? 'Article Content' : work.category.replace('-', ' ')}
+            subtitle={work.categories?.map(c => CATEGORY_LABELS[c] || c.replace('-', ' ')).join(' / ')}
           />
           
           {/* Project Metadata */}
-          <div className="flex flex-wrap gap-x-12 gap-y-6 border-y-2 border-[var(--color-brand-charcoal)] py-10 mt-12">
+          <div className="mt-12 flex flex-wrap gap-x-12 gap-y-6 border-y-2 border-[var(--color-brand-charcoal)] py-10">
             {work.client && (
               <div>
                 <p className="mb-2 text-[10px] font-black uppercase tracking-[0.3em] text-[var(--color-brand-red)]">Client</p>
@@ -138,9 +140,6 @@ export default async function WorkSamplePage({ params }: PageProps) {
 
         {/* Project Content */}
         <div className="mx-auto max-w-3xl">
-          <h2 className="font-display mb-8 text-2xl font-black uppercase tracking-tight text-[var(--color-brand-dark)] md:text-3xl">
-            The Challenge & Result
-          </h2>
           {work.body ? (
             <CustomPortableText value={work.body} />
           ) : (
@@ -168,10 +167,12 @@ export default async function WorkSamplePage({ params }: PageProps) {
           {work.pdfFile && (
             <div className="mt-12">
               <a
-                href={`${work.pdfFile.asset.url}?dl=`}
+                href={work.pdfFile.asset.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center rounded-sm bg-[var(--color-brand-dark)] px-6 py-3 text-sm font-bold uppercase tracking-widest text-white transition-all hover:bg-[var(--color-brand-charcoal)]"
               >
-                Download PDF Sample
+                Download PDF
               </a>
             </div>
           )}

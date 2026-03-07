@@ -8,6 +8,7 @@ interface SectionHeadingProps {
   subtitle?: string
   centered?: boolean
   light?: boolean
+  className?: string
 }
 
 export default function SectionHeading({
@@ -15,6 +16,7 @@ export default function SectionHeading({
   subtitle,
   centered = false,
   light = false,
+  className = 'mb-12 md:mb-16',
 }: SectionHeadingProps) {
   const { fadeUp } = useMotionVariants()
 
@@ -24,7 +26,7 @@ export default function SectionHeading({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className={`mb-12 md:mb-16 ${centered ? 'text-center' : 'text-left'}`}
+      className={`${className} ${centered ? 'text-center' : 'text-left'}`}
     >
       {subtitle && (
         <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-brand-red)]">

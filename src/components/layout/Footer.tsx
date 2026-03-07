@@ -63,7 +63,7 @@ export default async function Footer() {
       <div className="container-site py-16">
         <div className="grid gap-10 md:grid-cols-3">
           <div className="space-y-4">
-            <MoonLogo size={34} wordmarkSrc="/assets/ccc-logo-type-light.png" />
+            <MoonLogo size={34} wordmarkSrc="/assets/ccc-logo-type-light.svg" />
             <p className="max-w-xs text-sm leading-relaxed text-[var(--color-brand-warm)]/80">
               {settings?.tagline || 'Copywriter. Optimist. Brand Builder.'}
             </p>

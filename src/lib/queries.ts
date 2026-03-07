@@ -29,7 +29,7 @@ export const workSamplesQuery = `*[_type == "workSample"] | order(publishedAt de
   slug,
   client,
   industry,
-  category,
+  "categories": coalesce(categories, [category], []),
   summary,
   "featuredImage": featuredImage {
     ...,
@@ -49,7 +49,8 @@ export const featuredWorkQuery = `*[_type == "workSample" && featured == true] |
   title,
   slug,
   client,
-  category,
+  industry,
+  "categories": coalesce(categories, [category], []),
   summary,
   "featuredImage": featuredImage {
     ...,
@@ -67,7 +68,7 @@ export const workSampleBySlugQuery = `*[_type == "workSample" && slug.current ==
   slug,
   client,
   industry,
-  category,
+  "categories": coalesce(categories, [category], []),
   summary,
   body,
   "featuredImage": featuredImage {
@@ -78,7 +79,11 @@ export const workSampleBySlugQuery = `*[_type == "workSample" && slug.current ==
     }
   },
   externalUrl,
-  pdfFile,
+  pdfFile {
+    asset-> {
+      url
+    }
+  },
   publishedAt,
   seo
 }`
@@ -91,7 +96,7 @@ export const servicesQuery = `*[_type == "service"] | order(order asc){
   title,
   description,
   icon,
-  category
+  "categories": coalesce(categories, [category], [])
 }`
 
 // ============================================================

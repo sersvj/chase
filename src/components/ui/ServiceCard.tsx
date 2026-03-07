@@ -16,7 +16,7 @@ export default function ServiceCard({ service, variant = 'light' }: ServiceCardP
 
   return (
     <Link 
-      href={`/work?category=${service.category || 'all'}`}
+      href={`/work?category=${service.categories?.[0] || 'all'}`}
       className={`group relative flex flex-col h-full rounded-[var(--radius-card)] p-8 transition-all duration-300 hover:-translate-y-1 shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] ${
         isDark 
           ? 'bg-[var(--color-brand-dark)] border border-white/5 text-white' 
