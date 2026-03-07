@@ -90,83 +90,87 @@ export default function Header({
   ].filter(p => !!p.url)
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[var(--color-brand-white)]/95 shadow-sm backdrop-blur-sm'
-          : 'bg-transparent'
-      }`}
-    >
-      <ScrollProgressBar />
-      <div className="container-site flex h-16 items-center justify-between md:h-20">
-        <Link
-          href="/"
-          className="z-[60] flex items-center focus-visible:outline-none"
-          aria-label={`${siteTitle || 'Chase Creative'} — Home`}
-        >
-          <MoonLogo size={38} />
-        </Link>
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[var(--color-brand-white)]/95 shadow-sm backdrop-blur-sm'
+            : 'bg-transparent'
+        }`}
+      >
+        <ScrollProgressBar />
+        <div className="container-site flex h-16 items-center justify-between md:h-20">
+          <Link
+            href="/"
+            className={`z-[60] flex items-center transition-opacity duration-300 focus-visible:outline-none ${
+              menuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            }`}
+            aria-label={`${siteTitle || 'Chase Creative'} — Home`}
+          >
+            <MoonLogo size={38} />
+          </Link>
 
-        {/* Desktop Navigation - Hidden below lg breakpoint to prevent overlap */}
-        <nav aria-label="Main navigation" className="hidden lg:block">
-          <ul className="flex items-center gap-6 xl:gap-8" role="list">
-            {navLinks.map(({ label, href }) => {
-              const isActive = pathname === href || pathname.startsWith(href + '/')
-              return (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className={`relative text-sm font-medium tracking-wide transition-colors duration-200 hover:text-[var(--color-brand-red)] ${
-                      isActive
-                        ? 'text-[var(--color-brand-red)]'
-                        : 'text-[var(--color-brand-dark)]'
-                    }`}
-                  >
-                    {label}
-                    {isActive && (
-                      <motion.span
-                        layoutId="nav-underline"
-                        className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-[var(--color-brand-red)]"
-                      />
-                    )}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+          {/* Desktop Navigation - Hidden below lg breakpoint to prevent overlap */}
+          <nav aria-label="Main navigation" className="hidden lg:block">
+            <ul className="flex items-center gap-6 xl:gap-8" role="list">
+              {navLinks.map(({ label, href }) => {
+                const isActive = pathname === href || pathname.startsWith(href + '/')
+                return (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className={`relative text-sm font-medium tracking-wide transition-colors duration-200 hover:text-[var(--color-brand-red)] ${
+                        isActive
+                          ? 'text-[var(--color-brand-red)]'
+                          : 'text-[var(--color-brand-dark)]'
+                      }`}
+                    >
+                      {label}
+                      {isActive && (
+                        <motion.span
+                          layoutId="nav-underline"
+                          className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-[var(--color-brand-red)]"
+                        />
+                      )}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </nav>
 
-        <Link
-          href="/contact"
-          className="hidden rounded-sm bg-[var(--color-brand-red)] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.03] hover:bg-[var(--color-brand-red-dark)] hover:shadow-[var(--shadow-btn)] lg:block"
-        >
-          Let&apos;s Chat
-        </Link>
+          <Link
+            href="/contact"
+            className="hidden rounded-sm bg-[var(--color-brand-red)] px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:scale-[1.03] hover:bg-[var(--color-brand-red-dark)] hover:shadow-[var(--shadow-btn)] lg:block"
+          >
+            Let&apos;s Chat
+          </Link>
 
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="z-[60] flex h-10 w-10 items-center justify-center rounded-sm text-[var(--color-brand-dark)] transition-colors hover:text-[var(--color-brand-red)] lg:hidden"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-        >
-          <div className={`relative flex h-full w-full flex-col items-center justify-center transition-all ${menuOpen ? 'gap-0' : 'gap-1.5'}`}>
-            <motion.span
-              animate={menuOpen ? { rotate: 45, y: 1 } : { rotate: 0, y: 0 }}
-              className="block h-0.5 w-6 bg-current origin-center"
-            />
-            <motion.span
-              animate={menuOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
-              className="block h-0.5 w-6 bg-current"
-            />
-            <motion.span
-              animate={menuOpen ? { rotate: -45, y: -1 } : { rotate: 0, y: 0 }}
-              className="block h-0.5 w-6 bg-current origin-center"
-            />
-          </div>
-        </button>
-      </div>
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="z-[60] flex h-10 w-10 items-center justify-center rounded-sm text-[var(--color-brand-dark)] transition-colors hover:text-[var(--color-brand-red)] lg:hidden"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          >
+            <div className={`relative flex h-full w-full flex-col items-center justify-center transition-all ${menuOpen ? 'gap-0' : 'gap-1.5'}`}>
+              <motion.span
+                animate={menuOpen ? { rotate: 45, y: 1 } : { rotate: 0, y: 0 }}
+                className="block h-0.5 w-6 bg-current origin-center"
+              />
+              <motion.span
+                animate={menuOpen ? { opacity: 0, x: -10 } : { opacity: 1, x: 0 }}
+                className="block h-0.5 w-6 bg-current"
+              />
+              <motion.span
+                animate={menuOpen ? { rotate: -45, y: -1 } : { rotate: 0, y: 0 }}
+                className="block h-0.5 w-6 bg-current origin-center"
+              />
+            </div>
+          </button>
+        </div>
+      </header>
 
       {/* Enhanced Off-canvas Mobile Navigation */}
       <AnimatePresence>
@@ -179,7 +183,7 @@ export default function Header({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-[var(--color-brand-dark)]/10 backdrop-blur-md lg:hidden"
+              className="fixed inset-0 z-[55] bg-[var(--color-brand-dark)]/40 backdrop-blur-md lg:hidden"
             />
 
             {/* Menu Panel */}
@@ -189,11 +193,27 @@ export default function Header({
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 z-50 flex w-[85%] max-w-sm flex-col bg-[var(--color-brand-white)] p-8 shadow-2xl lg:hidden"
+              className="fixed inset-y-0 right-0 z-[70] flex w-[85%] max-w-sm flex-col shadow-2xl lg:hidden h-[100svh]"
+              style={{ backgroundColor: 'var(--color-brand-white)' }}
             >
-              <div className="mt-20 flex flex-1 flex-col justify-between">
+              {/* Top Branding & Close Area */}
+              <div className="flex h-16 items-center justify-between px-8 md:h-20">
+                <MoonLogo size={32} showWordmark={false} />
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  className="flex h-10 w-10 items-center justify-center rounded-sm text-[var(--color-brand-dark)] transition-colors hover:text-[var(--color-brand-red)]"
+                  aria-label="Close navigation menu"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="flex flex-1 flex-col justify-between overflow-y-auto px-8 pb-8 pt-2">
                 <nav aria-label="Mobile navigation">
-                  <ul className="flex flex-col gap-2" role="list">
+                  <ul className="flex flex-col gap-0.5" role="list">
                     {navLinks.map(({ label, href }, index) => {
                       const isActive = pathname === href || pathname.startsWith(href + '/')
                       return (
@@ -205,10 +225,10 @@ export default function Header({
                         >
                           <Link
                             href={href}
-                            className={`group flex items-center justify-between py-4 text-3xl font-bold tracking-tight transition-all ${
+                            className={`group flex items-center justify-between py-2 text-2xl font-bold tracking-tight transition-all ${
                               isActive
                                 ? 'text-[var(--color-brand-red)]'
-                                : 'text-[var(--color-brand-dark)] hover:pl-4'
+                                : 'text-[var(--color-brand-dark)] hover:pl-2'
                             }`}
                           >
                             {label}
@@ -232,16 +252,16 @@ export default function Header({
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="space-y-12 pb-8"
+                  className="mt-8 space-y-6"
                 >
                   <Link
                     href="/contact"
-                    className="block w-full rounded-sm bg-[var(--color-brand-red)] py-5 text-center text-lg font-bold text-white shadow-lg transition-transform active:scale-95"
+                    className="block w-full rounded-sm bg-[var(--color-brand-red)] py-4 text-center text-lg font-bold text-white shadow-lg transition-transform active:scale-95"
                   >
                     Let&apos;s Chat
                   </Link>
 
-                  <div className="space-y-6">
+                  <div className="space-y-4">
                     <p className="text-xs font-black uppercase tracking-[0.3em] text-[var(--color-brand-dark)] opacity-40">
                       Connect
                     </p>
@@ -262,9 +282,10 @@ export default function Header({
                 </motion.div>
               </div>
             </motion.div>
+
           </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   )
 }
