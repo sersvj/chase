@@ -9,29 +9,22 @@ export default function PageTransition({ children }: { children: React.ReactNode
   const pathname = usePathname()
   const { pageTransition } = useMotionVariants()
 
-  // Ensure scroll is at top on navigation
-  // We use a small timeout to let the exit animation start before jumping
+  // Ensure scroll is at top on navigation immediately
   useEffect(() => {
-    const timer = setTimeout(() => {
-      window.scrollTo(0, 0)
-    }, 100)
-    return () => clearTimeout(timer)
+    window.scrollTo(0, 0)
+    // Manually trigger a scroll event to wake up intersection observers/animations
+    window.dispatchEvent(new Event('scroll'))
   }, [pathname])
 
   return (
-    <LayoutGroup>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={pathname}
-          variants={pageTransition}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          className="w-full"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
-    </LayoutGroup>
+    <motion.div
+      key={pathname}
+      variants={pageTransition}
+      initial="hidden"
+      animate="visible"
+      className="w-full"
+    >
+      {children}
+    </motion.div>
   )
 }
